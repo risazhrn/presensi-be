@@ -4,16 +4,16 @@ const validate = require("../middleware/validator");
 module.exports.login = [
   validate(
     {
-      username: "string",
+      email: "string",
       password: "string",
     },
     (req) => req.body
   ),
   async (req, res) => {
     try {
-      const { username, password } = req.body;
-      const dataToken = await userService.login(username, password);
-      if (!dataToken) throw new Error("username dan password salah");
+      const { email, password } = req.body;
+      const dataToken = await userService.login(email, password);
+      if (!dataToken) throw new Error("email dan password salah");
       return res.json({ message: "Berhasil login", data: dataToken });
     } catch (error) {
       return res.status(400).json({ message: error.message });
